@@ -1,0 +1,4 @@
+<launch>
+    <node type="scan3" pkg="beginner_tutorials" name="scan3" output="screen"/>
+    <node type="servo1" pkg="beginner_tutorials" name="servo1" output="screen"/>
+</launch>

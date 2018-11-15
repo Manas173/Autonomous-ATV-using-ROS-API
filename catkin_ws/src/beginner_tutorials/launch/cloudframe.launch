@@ -1,0 +1,6 @@
+<launch>
+    <node type="gh.py" pkg="beginner_tutorials" name="gh" output="screen">
+    <param name="fixed_frame" type="string" value="laser_frame" />
+    </node>
+    
+</launch>

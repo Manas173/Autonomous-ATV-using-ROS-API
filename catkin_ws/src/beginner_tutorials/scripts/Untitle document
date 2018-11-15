@@ -1,0 +1,9 @@
+listener = tf.TransformListener()
+listener.waitForTransform("/base_link", "/odom", rospy.Time(0),rospy.Duration(4.0))
+laser_point=PointStamped()
+laser_point.header.frame_id = "base_link"
+laser_point.header.stamp =rospy.Time(0)
+laser_point.point.x=1.0
+laser_point.point.y=1.0
+laser_point.point.z=0.0
+p=listener.transformPoint("odom",laser_point)

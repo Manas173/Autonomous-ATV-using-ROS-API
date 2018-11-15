@@ -1,0 +1,9 @@
+<launch>
+  <node type="point_cloud_assembler" pkg="laser_assembler"
+        name="my_assembler2">
+    <remap from="cloud" to="cloud"/>
+    <param name="max_scans" type="int" value="1000000000" />
+    <param name="fixed_frame" type="string" value="laser_frame" />
+    </node>
+    <node type="zaxis1.py" pkg="laser_to_pcl" name="assemble_scans_to_cloud1" output="screen"/>
+</launch>

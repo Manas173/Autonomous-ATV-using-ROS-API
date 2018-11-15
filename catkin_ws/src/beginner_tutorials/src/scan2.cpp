@@ -1,0 +1,79 @@
+#include <ros/ros.h>
+#include <sensor_msgs/LaserScan.h>
+#include <std_msgs/Int16.h>
+#include <std_msgs/Float32.h>
+float *Buffer;
+int16_t j=0,max=10000;
+float dat;
+int16_t num_readings=50;
+
+void chatterCallback(const std_msgs::Float32::ConstPtr& msg)
+{ 
+  dat = msg->data;
+  ROS_INFO("[%f]",dat);
+  ros::Time scan_time1 = ros::Time::now();
+  
+  
+   if(j<180)
+  {
+   Buffer[j]=dat;
+   //ROS_INFO("[%f],[%d]",Buffer[j],j);
+   j=j+1;
+   //Buffer = (int16_t *)realloc(Buffer,j);
+   if(j>=180)
+  {
+   j=0;
+  }
+
+   }
+  
+} 
+
+int main(int argc, char** argv)
+{ //Buffer = (int16_t *)malloc(sizeof(int16_t));
+  Buffer = new float[max];
+  ros::init(argc, argv, "laser_scan_publisher");
+
+  ros::NodeHandle n;
+  ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
+  ros::Publisher scan_pub = n.advertise<sensor_msgs::LaserScan>("scan", 50);
+  double laser_frequency = 0.011112;
+  double ranges[num_readings];
+  double intensities[num_readings];
+
+  int count = 0;
+  ros::Rate r(1.0);
+
+  while(ros::ok()){
+    //generate some fake data for our laser scan
+    ros::Time scan_time = ros::Time::now();
+    //populate the LaserScan message
+    sensor_msgs::LaserScan scan;
+    scan.header.stamp = scan_time;
+    scan.header.frame_id = "laser_frame";
+    scan.angle_min = -1.57;
+    scan.angle_max = 1.57;
+    scan.angle_increment = 3.14 / num_readings;
+    scan.time_increment = (1 / laser_frequency) / (num_readings);
+    scan.range_min = 0.0;
+    scan.range_max = 10000.0;
+
+    scan.ranges.resize(num_readings);
+    scan.intensities.resize(num_readings);
+    for(unsigned int i = 0; i < num_readings; ++i){
+      scan.ranges[i] = Buffer[i];
+      
+    }
+
+    scan_pub.publish(scan);
+    ++count;
+    r.sleep();
+    ros::spinOnce();
+    
+  }
+
+  //ros::spin();
+return 0;
+}
+
+

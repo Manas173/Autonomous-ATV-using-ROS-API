@@ -1,0 +1,4 @@
+<launch>
+    <node type="scan3" pkg="beginner_tutorials" name="scans_to_cloud" output="screen"/>
+    <node type="servo" pkg="beginner_tutorials" name="to_cloud" output="screen"/>
+</launch>
