@@ -11,7 +11,10 @@ Raspberry 3 (Raspbian OS)
 ATMEGA2560
 APM2.8
 
+
 ![GUI of OSM Application for Start and Destination points showing the current and intended positions respectively.  (The dotted line represents the path followed by robot). ](https://github.com/Manas173/Autonomous-ATV-using-ROS-API/blob/master/image002.jpg)
+
+
 GUI of OSM Application for Start and Destination points showing the current and intended positions respectively.  (The dotted line represents the path followed by robot)
 
 
